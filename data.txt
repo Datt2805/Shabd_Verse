@@ -1,0 +1,39 @@
+Readers
+
+Name: Aarav Sharma
+Email: aarav.sharma21@gmail.com
+Password: Aarav@123
+
+Name: Priya Patel
+Email: priya.patel98@gmail.com
+Password: Priya@456
+
+Name: Rohan Mehta
+Email: rohan.mehta07@gmail.com
+Password: Rohan@789
+
+Name: Sneha Iyer
+Email: sneha.iyer25@gmail.com
+Password: Sneha@321
+
+Name: Datt Bhatt
+Email: datt.bhatt28@gmail.com
+Password: Datt@123
+
+
+Sellers
+
+Name: Dev Bhavsar
+Email: dev.bhavsar28@gmail.com
+Password: Dev@123
+
+Name: Hiral Chhatrapati
+Email: hiral.chhatrapati28@gmail.com
+Password: Hiral@123
+
+
+Admin
+
+Name: Admin User
+Email: admin.shabdverse@gmail.com
+Password: Admin@12345
