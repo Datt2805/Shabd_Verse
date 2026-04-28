@@ -14,9 +14,14 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await register(formData.name, formData.email, formData.password, formData.role);
-      toast.success('Welcome to the ShabdVerse community!');
-      navigate('/books');
+      const result = await register(formData.name, formData.email, formData.password, formData.role);
+      if (result.autologin) {
+        toast.success('Welcome to the ShabdVerse community!');
+        navigate('/books');
+      } else {
+        toast.success(result.message || 'Registration successful! Pending admin approval.');
+        navigate('/login');
+      }
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed');
     }

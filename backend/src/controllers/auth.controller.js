@@ -20,10 +20,17 @@ const registerUser = async (req, res) => {
             password: hashedPassword,
             role: role || 'reader',
             // Sellers require admin approval; all other roles are auto-approved
-            isApproved: role === 'seller' ? false : true
+            isApproved: (role && role.toLowerCase() === 'seller') ? false : true
         });
 
         await user.save();
+
+        if (user.role === 'seller') {
+            return res.status(201).json({
+                success: true,
+                message: 'Registration successful! Your account is pending admin approval. You will be able to log in once an admin approves your account.'
+            });
+        }
 
         const payload = { user: { id: user.id, role: user.role } };
 
@@ -52,7 +59,9 @@ const loginUser = async (req, res) => {
         }
 
         // Block unapproved sellers from logging in
-        if (user.role === 'seller' && !user.isApproved) {
+        console.log(`Login attempt: ${user.email}, Role: ${user.role}, Approved: ${user.isApproved}`);
+        if (user.role === 'seller' && user.isApproved !== true) {
+            console.log(`Blocking unapproved seller: ${user.email}`);
             return res.status(403).json({
                 message: 'Your account is pending admin approval. Please wait for an admin to review your account.'
             });
@@ -73,6 +82,15 @@ const loginUser = async (req, res) => {
 const getMe = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Extra security: Block unapproved sellers even if they have a token
+        if (user.role === 'seller' && user.isApproved !== true) {
+            return res.status(403).json({ message: 'Your account is pending admin approval.' });
+        }
+
         res.json(user);
     } catch (error) {
         console.error(error.message);
