@@ -29,7 +29,7 @@ This guide covers the steps to host your Node.js backend, Redis, and MongoDB dat
 2. Navigate to the folder where you saved your `.pem` key file.
 3. Run the following command to connect (replace with your key name and EC2 public IP):
    ```bash
-   ssh -i "your-key.pem" ubuntu@<YOUR_EC2_PUBLIC_IP>
+   ssh -i "shabdverse-password.pem" ubuntu@52.204.35.61
    ```
 
 ---
@@ -78,7 +78,7 @@ We have already backed up your local database to the `database` folder in your p
 2. Navigate to the directory containing your `.pem` file.
 3. Use `scp` to copy the `database` folder to your EC2 instance (Replace values accordingly):
    ```bash
-   scp -i "your-key.pem" -r "d:\College Project\frontend and backend\frontend and backend\database" ubuntu@<YOUR_EC2_PUBLIC_IP>:~/database
+   scp -i "shabdverse-password.pem" -r "d:\College Project\frontend and backend\frontend and backend\database" ubuntu@52.204.35.61:~/database
    ```
 4. Go back to your **EC2 SSH terminal** and restore the database using `mongorestore`:
    ```bash
@@ -90,8 +90,8 @@ We have already backed up your local database to the `database` folder in your p
 ## Step 5: Setup the Backend Code
 1. Clone your repository containing the backend code to the EC2 instance:
    ```bash
-   git clone <YOUR_GIT_REPOSITORY_URL>
-   cd <YOUR_PROJECT_FOLDER>/backend
+   git clone https://github.com/Datt2805/Shabd_Verse.git
+   cd Shabd_Verse/backend
    ```
 2. Install the backend dependencies:
    ```bash
@@ -140,11 +140,11 @@ To keep the backend running in the background even after you close the SSH termi
 ---
 
 ## Step 8: Update Frontend API URL
-Now that your backend is running on `http://<YOUR_EC2_PUBLIC_IP>:5000`, you need to update your frontend code (which is hosted separately) to point to this new URL.
+Now that your backend is running on `http://52.204.35.61:5000`, you need to update your frontend code (which is hosted separately) to point to this new URL.
 
 1. Go to your frontend code.
 2. Find where the API base URL is defined (usually in a `.env` file or Axios configuration).
-3. Change it to: `http://<YOUR_EC2_PUBLIC_IP>:5000`.
+3. Change it to: `http://52.204.35.61:5000`.
 4. Commit and push the changes to Git so your frontend hosting platform deploys the update.
 
 *(Note: If your frontend is served over HTTPS, browsers will block HTTP API requests due to Mixed Content. In a production environment, you will eventually want to link a Domain Name to your EC2 instance and set up an SSL Certificate using Nginx and Let's Encrypt).*
@@ -190,3 +190,5 @@ Then restart your backend to apply it:
 ```bash
 pm2 restart shabdverse-backend
 ```
+
+
